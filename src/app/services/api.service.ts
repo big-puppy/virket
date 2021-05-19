@@ -65,7 +65,7 @@ export class ApiService {
 
   shoppingCart(): Observable<any> {
     return this.http
-      .get<any>(this.contexto + this.uri.allProducts)
+      .get<any>(this.contexto + this.uri.shoppingCart)
       .pipe(
         retry(2),
         catchError(this.handleError)
