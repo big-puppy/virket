@@ -6,4 +6,70 @@
 
 <ion-content>
 
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="{{datosPerfil.picture.medium}}">
+    </ion-avatar>
+    <ion-label>{{datosPerfil.fullName}}</ion-label>
+  </ion-item>
+  
+
+  <ion-list>
+    <ion-list-header>Ofertas del dia </ion-list-header>
+
+    <ion-item *ngFor="let oferta of ofertas">
+      <ion-label>
+        <h2>{{oferta.product_name}}</h2>
+        <p>Antes: {{oferta.precionSinDescuento | currency }}  </p>
+        <h3>oferta : {{oferta.product_price | currency}}</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+
+  <div class="descubre">
+    Descubre
+  </div>
+
+  <div class="cont-productos">
+
+    <div class="producto" *ngFor="let producto of productos">
+
+      <div *ngIf="producto.is_favorite == true" class="favorito">
+        <ion-icon class="icon-corazon" name="heart"></ion-icon>
+      </div>
+
+      <div *ngIf="producto.is_favorite == false" class="no-favorito">
+        <ion-icon class="icon-corazon" name="heart"></ion-icon>
+      </div>
+
+      <div class="cont-nombre">
+        <label class="txt-gris">{{producto.brand}}</label>
+        <label class="txt-negro">{{producto.product_name}}</label>
+      </div>
+
+      <div class="cont-img">
+        <img class="img-produ" src="{{producto.product_image}}" alt="">
+      </div>
+
+      <div class="final-produ">
+        <div class="cont-precio">
+          <label class="precio">{{producto.product_price | currency}}</label>
+          <div class="estrellas">
+            <ion-icon name="star" class="icon-star"></ion-icon>
+            <ion-icon name="star" class="icon-star"></ion-icon>
+            <ion-icon name="star" class="icon-star"></ion-icon>
+            <ion-icon name="star" class="icon-star"></ion-icon>
+            <ion-icon name="star" class="icon-star"></ion-icon>
+          </div>
+        </div>
+
+        <div class="cont-mas">
+          <ion-icon name="add" class="icon-mas"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </ion-content>
