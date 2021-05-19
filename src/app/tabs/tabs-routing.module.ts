@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/inicio',
+    redirectTo: '/tabs/tabs/inicio',
     pathMatch: 'full'
   }
 ];
