@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router'
 import { Storage } from '@ionic/storage';
-import { IonicToastService } from '../services/ionic-toast.service';
+import { IonicToastService } from '../services/toast/ionic-toast.service';
 
 @Component({
   selector: 'app-detalle-producto',

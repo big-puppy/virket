@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { ApiService } from '../services/api.service';
+import { ApiService } from '../services/recursos-api/api.service';
 import { Storage } from '@ionic/storage';
-import { IonicToastService } from '../services/ionic-toast.service';
+import { IonicToastService } from '../services/toast/ionic-toast.service';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',

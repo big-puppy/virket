@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../services/api.service';
 import { Storage } from '@ionic/storage';
-import { IonicToastService } from '../services/ionic-toast.service';
+import { IonicToastService } from '../services/toast/ionic-toast.service';
 
 @Component({
   selector: 'app-carrito-compras',
@@ -14,7 +13,7 @@ export class CarritoComprasPage {
 
   carrito = { products: [], subtotal: 0, shipping: "", total: 0 }
 
-  constructor(public apis: ApiService, private storage: Storage, public toastController: IonicToastService) { }
+  constructor(private storage: Storage, public toastController: IonicToastService) { }
 
   ionViewDidEnter() {
     this.obtenerCarritoLocal();
