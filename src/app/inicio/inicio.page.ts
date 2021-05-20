@@ -3,13 +3,16 @@ import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 import { Storage } from '@ionic/storage';
+import { IonicToastService } from '../services/ionic-toast.service';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
 
-export class InicioPage  {
+export class InicioPage {
+
+  myToast: any;
 
   /*****DATOS PERFIL********/
 
@@ -26,7 +29,7 @@ export class InicioPage  {
   carrito = { products: [], subtotal: 0, shipping: "", total: 0 }
   carritoLocal = null;
 
-  constructor(public apis: ApiService, private navCtrl: NavController, private storage: Storage) { }
+  constructor(public apis: ApiService, private navCtrl: NavController, private storage: Storage, public toastController: IonicToastService) { }
 
   ionViewDidEnter() {
     this.obtenerDatosPerfil();
@@ -178,6 +181,7 @@ export class InicioPage  {
     this.carrito.products.push(producto);
     this.calcularTotal();
     this.guardarCarritoLocal();
+    this.toastController.showToast('Producto agregado correctamente')
   }
 
   /**
@@ -193,5 +197,4 @@ export class InicioPage  {
     this.carrito.subtotal = total;
     this.carrito.total = this.carrito.subtotal + parseFloat(this.carrito.shipping)
   }
-
 }
