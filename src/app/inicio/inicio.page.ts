@@ -12,6 +12,10 @@ import { IonicToastService } from '../services/ionic-toast.service';
 
 export class InicioPage {
 
+  MSG_AGREGAR_FAVORITO = "Se agrego a favoritos"
+  MSG_QUITAR_fAVORITO = "Se quito de favoritos"
+  MSG_AGREGAR_PRODUCTO = "Producto agregado correctamente"
+
   myToast: any;
 
   /*****DATOS PERFIL********/
@@ -59,12 +63,12 @@ export class InicioPage {
   obtenerProductos() {
     if (this.productosLocales != null) {
       this.productos = this.productosLocales;
-      this.manejoDeropiedadSeccion();
+      this.manejoDePropiedadSeccion();
       this.ontenerOfertasDelDia();
     } else {
       this.apis.allProducts().subscribe(response => {
         this.productos = response.data
-        this.manejoDeropiedadSeccion();
+        this.manejoDePropiedadSeccion();
         this.guardarProductosLocales();
         this.ontenerOfertasDelDia();
       })
@@ -121,15 +125,17 @@ export class InicioPage {
    * y esos productos los sobrescribimos en el local storage
    * @param producto 
    */
-  favoritos(producto,index) {
+  favoritos(producto, index) {
 
     var favorito = true;
     var noFavorito = false;
 
     if (producto.is_favorite == true) {
       producto.is_favorite = noFavorito;
+      this.toastController.showToast(this.MSG_QUITAR_fAVORITO)
     } else {
       producto.is_favorite = favorito;
+      this.toastController.showToast(this.MSG_AGREGAR_FAVORITO)
     }
 
     for (var x = 0; x < this.productos.length; x++) {
@@ -152,7 +158,7 @@ export class InicioPage {
    */
   mostrarSeccion(indice) {
 
-    this.manejoDeropiedadSeccion();
+    this.manejoDePropiedadSeccion();
 
     this.productos[indice].seccion = true;
   }
@@ -170,15 +176,15 @@ export class InicioPage {
    * Agrega el atributo seccion a todos los productos 
    * con el valor false
    */
-  manejoDeropiedadSeccion(){
+  manejoDePropiedadSeccion() {
 
     for (var x = 0; x < this.productos.length; x++) {
       this.productos[x].seccion = false;
     }
-    
+
   }
 
-  
+
 
   obtenerCarrito() {
 
@@ -215,14 +221,14 @@ export class InicioPage {
    * se elimina la propiedad colors
    * @param producto 
    */
-  agregarAlCarrito(producto,i) {
+  agregarAlCarrito(producto, i) {
     producto["color"] = producto.colors[0]
     delete producto.colors;
     this.carrito.products.push(producto);
     this.calcularTotal();
     this.guardarCarritoLocal();
     this.ocultarSeccion(i)
-    this.toastController.showToast('Producto agregado correctamente')
+    this.toastController.showToast(this.MSG_AGREGAR_PRODUCTO)
   }
 
   /**
