@@ -1,9 +1,54 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>filtros</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+
+  <div class="cont-productos">
+
+    <div class="producto" *ngFor="let producto of productos let i = index">
+
+      <ng-container *ngIf="!producto.seccion">
+
+        <div *ngIf="producto.is_favorite == true" class="favorito">
+          <ion-icon class="icon-corazon" name="heart"></ion-icon>
+        </div>
+
+        <div *ngIf="producto.is_favorite == false" class="no-favorito">
+          <ion-icon class="icon-corazon" name="heart"></ion-icon>
+        </div>
+
+        <div class="cont-nombre">
+          <label class="txt-gris">{{producto.brand}}</label>
+          <label class="txt-negro">{{producto.product_name}}</label>
+        </div>
+
+        <div (click)="verDetalleProducto(producto)" class="cont-img">
+          <img class="img-produ" src="{{producto.product_image}}" alt="">
+        </div>
+
+        <div class="final-produ">
+          <div class="cont-precio">
+            <label class="precio">{{producto.product_price | currency}}</label>
+            <div class="estrellas">
+              <ion-icon class="icon-star" name="star" *ngIf="producto.score > 0"></ion-icon>
+              <ion-icon class="icon-star" name="star" *ngIf="producto.score > 1"></ion-icon>
+              <ion-icon class="icon-star" name="star" *ngIf="producto.score > 2"></ion-icon>
+              <ion-icon class="icon-star" name="star" *ngIf="producto.score > 3"></ion-icon>
+              <ion-icon class="icon-star" name="star" *ngIf="producto.score > 4"></ion-icon>
+              <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 1"></ion-icon>
+              <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 2"></ion-icon>
+              <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 3"></ion-icon>
+              <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 4"></ion-icon>
+              <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 5"></ion-icon>
+            </div>
+          </div>
+
+        </div>
+
+      </ng-container>
+
+      <div class="cont-agregar" *ngIf="producto.seccion">
+      </div>
+
+    </div>
+
+  </div>
 
 </ion-content>
