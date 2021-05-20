@@ -209,7 +209,7 @@ export class InicioPage {
   }
 
   /**
-   * Guarda los prodcutos en local storage
+   * Guarda los prodcutos en el carrito del local storage
    */
   guardarCarritoLocal() {
     this.storage.set("carrito", this.carrito)
@@ -225,23 +225,8 @@ export class InicioPage {
     producto["color"] = producto.colors[0]
     delete producto.colors;
     this.carrito.products.push(producto);
-    this.calcularTotal();
     this.guardarCarritoLocal();
     this.ocultarSeccion(i)
     this.toastController.showToast(this.MSG_AGREGAR_PRODUCTO)
-  }
-
-  /**
-   * calcula el subtotal con base a la suma del product_price de cada producto
-   * calcula el total con base a la suma del subtotal y el shipping
-   */
-  calcularTotal() {
-    var total = 0;
-    for (var x = 0; x < this.carrito.products.length; x++) {
-      total += parseFloat(this.carrito.products[x].product_price);
-    }
-
-    this.carrito.subtotal = total;
-    this.carrito.total = this.carrito.subtotal + parseFloat(this.carrito.shipping)
   }
 }
