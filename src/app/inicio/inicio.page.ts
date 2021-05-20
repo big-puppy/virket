@@ -11,16 +11,27 @@ import { Storage } from '@ionic/storage';
 
 export class InicioPage implements OnInit {
 
+  /*****DATOS PERFIL********/
+
   datosPerfil = { picture: {} };
+
+  /*****PRODUCTOS***********/
+
   productos = [];
   productosLocales = null
   ofertas = [];
+
+  /*****CARRITO**********/
+
+  carrito = []
+  carritoLocal = null;
 
   constructor(public apis: ApiService, private navCtrl: NavController, private storage: Storage) { }
 
   ngOnInit() {
     this.obtenerDatosPerfil();
     this.obtenerProductosLocales();
+    this.obtenerCarritoLocal();
   }
 
   /**
@@ -38,9 +49,9 @@ export class InicioPage implements OnInit {
    * si no hay consumimos el recurso de allProducts y los asignamos a la vairable principal this.prodcutos
    */
   obtenerProductos() {
-    if(this.productosLocales != null){
+    if (this.productosLocales != null) {
       this.productos = this.productosLocales;
-    }else{
+    } else {
       this.apis.allProducts().subscribe(response => {
         this.productos = response.data
         this.guardarProductosLocales();
@@ -53,7 +64,7 @@ export class InicioPage implements OnInit {
   /**
    * busca si hay productos en el local storage
    */
-  obtenerProductosLocales(){
+  obtenerProductosLocales() {
     this.storage.get('productos').then((val => {
       this.productosLocales = val;
       this.obtenerProductos();
@@ -63,8 +74,8 @@ export class InicioPage implements OnInit {
   /**
    * Guarda los prodcutos en local storage
    */
-  guardarProductosLocales(){
-    this.storage.set("productos",this.productos)
+  guardarProductosLocales() {
+    this.storage.set("productos", this.productos)
   }
 
   /**
@@ -118,6 +129,38 @@ export class InicioPage implements OnInit {
     }
 
     this.guardarProductosLocales();
+  }
+
+
+  /*************************CARRITO************************/
+
+  obtenerCarrito() {
+
+    if (this.carritoLocal != null) {
+      this.carrito = this.carritoLocal;
+    } else {
+      this.apis.shoppingCart().subscribe(response => {
+        this.carrito = response.data
+        this.guardarCarritoLocal();
+      })
+    }
+  }
+
+  /**
+   * busca si hay carrito en el local storage
+   */
+  obtenerCarritoLocal() {
+    this.storage.get('carrito').then((val => {
+      this.carritoLocal = val;
+      this.obtenerCarrito();
+    }));
+  }
+
+  /**
+   * Guarda los prodcutos en local storage
+   */
+  guardarCarritoLocal() {
+    this.storage.set("carrito", this.carrito)
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-carrito-compras',
@@ -8,18 +9,21 @@ import { ApiService } from '../services/api.service';
 })
 export class CarritoComprasPage implements OnInit {
 
-  carrito = []
-  constructor(public apis: ApiService) { }
+  carritoLocal = []
+  constructor(public apis: ApiService, private storage: Storage) { }
 
   ngOnInit() {
-    this.obtenerCarrito();
+    this.obtenerCarritoLocal();
   }
 
-  obtenerCarrito() {
-    this.apis.shoppingCart().subscribe(response => {
-      this.carrito = response.data
-      console.log(this.carrito)
-    })
+  /**
+   * busca si hay carrito en el local storage
+   */
+   obtenerCarritoLocal() {
+    this.storage.get('carrito').then((val => {
+      this.carritoLocal = val;
+      console.log(this.carritoLocal)
+    }));
   }
 
 }
