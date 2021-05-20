@@ -57,10 +57,16 @@ export class InicioPage {
   obtenerProductos() {
     if (this.productosLocales != null) {
       this.productos = this.productosLocales;
+      for (var x = 0; x < this.productos.length; x++) {
+        this.productos[x].agregar = false;
+      }
       this.ontenerOfertasDelDia();
     } else {
       this.apis.allProducts().subscribe(response => {
         this.productos = response.data
+        for (var x = 0; x < this.productos.length; x++) {
+          this.productos[x].agregar = false;
+        }
         this.guardarProductosLocales();
         this.ontenerOfertasDelDia();
       })
@@ -117,7 +123,7 @@ export class InicioPage {
    * y esos productos los sobrescribimos en el local storage
    * @param producto 
    */
-  favoritos(producto) {
+  favoritos(producto,i) {
 
     var favorito = true;
     var noFavorito = false;
@@ -134,11 +140,27 @@ export class InicioPage {
       }
     }
 
+    this.ocultar(i);
+
     this.guardarProductosLocales();
   }
 
 
   /*************************CARRITO************************/
+
+  mostrar(i) {
+
+    for (var x = 0; x < this.productos.length; x++) {
+      this.productos[x].agregar = false;
+    }
+
+    this.productos[i].agregar = true;
+  }
+
+  ocultar(i) {
+
+    this.productos[i].agregar = false;
+  }
 
   obtenerCarrito() {
 
@@ -175,12 +197,13 @@ export class InicioPage {
    * se elimina la propiedad colors
    * @param producto 
    */
-  agregarAlCarrito(producto) {
+  agregarAlCarrito(producto,i) {
     producto["color"] = producto.colors[0]
     delete producto.colors;
     this.carrito.products.push(producto);
     this.calcularTotal();
     this.guardarCarritoLocal();
+    this.ocultar(i)
     this.toastController.showToast('Producto agregado correctamente')
   }
 

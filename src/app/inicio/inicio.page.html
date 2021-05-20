@@ -53,44 +53,57 @@
 
   <div class="cont-productos">
 
-    <div class="producto" *ngFor="let producto of productos">
-
-      <div (click)="favoritos(producto)" *ngIf="producto.is_favorite == true" class="favorito">
-        <ion-icon class="icon-corazon" name="heart"></ion-icon>
-      </div>
-
-      <div (click)="favoritos(producto)" *ngIf="producto.is_favorite == false" class="no-favorito">
-        <ion-icon class="icon-corazon" name="heart"></ion-icon>
-      </div>
-
-      <div class="cont-nombre">
-        <label class="txt-gris">{{producto.brand}}</label>
-        <label class="txt-negro">{{producto.product_name}}</label>
-      </div>
-
-      <div (click)="verDetalleProducto(producto)" class="cont-img">
-        <img class="img-produ" src="{{producto.product_image}}" alt="">
-      </div>
-
-      <div class="final-produ">
-        <div class="cont-precio">
-          <label class="precio">{{producto.product_price | currency}}</label>
-          <div class="estrellas">
-            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 0"></ion-icon>
-            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 1"></ion-icon>
-            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 2"></ion-icon>
-            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 3"></ion-icon>
-            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 4"></ion-icon>
-            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 1"></ion-icon>
-            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 2"></ion-icon>
-            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 3"></ion-icon>
-            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 4"></ion-icon>
-            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 5"></ion-icon>
-          </div>
+    <div class="producto" *ngFor="let producto of productos let i = index">
+      <ng-container *ngIf="!producto.agregar">
+        <div *ngIf="producto.is_favorite == true" class="favorito">
+          <ion-icon class="icon-corazon" name="heart"></ion-icon>
         </div>
 
-        <div (click)="agregarAlCarrito(producto)" class="cont-mas">
-          <ion-icon name="add" class="icon-mas"></ion-icon>
+        <div *ngIf="producto.is_favorite == false" class="no-favorito">
+          <ion-icon class="icon-corazon" name="heart"></ion-icon>
+        </div>
+
+        <div class="cont-nombre">
+          <label class="txt-gris">{{producto.brand}}</label>
+          <label class="txt-negro">{{producto.product_name}}</label>
+        </div>
+
+        <div (click)="verDetalleProducto(producto)" class="cont-img">
+          <img class="img-produ" src="{{producto.product_image}}" alt="">
+        </div>
+
+        <div class="final-produ">
+          <div class="cont-precio">
+            <label class="precio">{{producto.product_price | currency}}</label>
+            <div class="estrellas">
+              <ion-icon class="icon-star" name="star" *ngIf="producto.score > 0"></ion-icon>
+              <ion-icon class="icon-star" name="star" *ngIf="producto.score > 1"></ion-icon>
+              <ion-icon class="icon-star" name="star" *ngIf="producto.score > 2"></ion-icon>
+              <ion-icon class="icon-star" name="star" *ngIf="producto.score > 3"></ion-icon>
+              <ion-icon class="icon-star" name="star" *ngIf="producto.score > 4"></ion-icon>
+              <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 1"></ion-icon>
+              <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 2"></ion-icon>
+              <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 3"></ion-icon>
+              <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 4"></ion-icon>
+              <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 5"></ion-icon>
+            </div>
+          </div>
+
+          <div (click)="mostrar(i)" class="cont-mas">
+            <ion-icon name="add" class="icon-mas"></ion-icon>
+          </div>
+        </div>
+      </ng-container>
+      <div class="cont-agregar" *ngIf="producto.agregar">
+        <div class="cerrar">
+          <ion-icon class="icon-cerrar" (click)="ocultar(i)" name="chevron-down"></ion-icon>
+        </div>
+        <div (click)="favoritos(producto, i)" class="agregar-favoritos">
+          Agregar a favoritos
+        </div>
+        <div (click)="agregarAlCarrito(producto,i)" class="agregar-carrito">
+          <img src="assets/icons/add_shopping_cart.svg" class="icon-carrito" />
+          Agregar al carrito
         </div>
       </div>
     </div>
