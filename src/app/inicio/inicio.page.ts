@@ -23,7 +23,7 @@ export class InicioPage implements OnInit {
 
   /*****CARRITO**********/
 
-  carrito = []
+  carrito = null
   carritoLocal = null;
 
   constructor(public apis: ApiService, private navCtrl: NavController, private storage: Storage) { }
@@ -51,14 +51,14 @@ export class InicioPage implements OnInit {
   obtenerProductos() {
     if (this.productosLocales != null) {
       this.productos = this.productosLocales;
+      this.ontenerOfertasDelDia();
     } else {
       this.apis.allProducts().subscribe(response => {
         this.productos = response.data
         this.guardarProductosLocales();
+        this.ontenerOfertasDelDia();
       })
     }
-
-    this.ontenerOfertasDelDia();
   }
 
   /**
@@ -160,7 +160,15 @@ export class InicioPage implements OnInit {
    * Guarda los prodcutos en local storage
    */
   guardarCarritoLocal() {
+    console.log("carrito guardar local => ", this.carrito)
     this.storage.set("carrito", this.carrito)
+  }
+
+  agregarAlCarrito(producto){
+    producto["color"] = producto.colors[0]
+    delete producto.colors;
+    this.carrito.products.push(producto);
+    this.guardarCarritoLocal();
   }
 
 }
