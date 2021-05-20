@@ -13,7 +13,7 @@ export class InicioPage implements OnInit {
 
   /*****DATOS PERFIL********/
 
-  datosPerfil = { picture: {} };
+  datosPerfil = { fullName: '', picture: {} };
 
   /*****PRODUCTOS***********/
 
@@ -23,7 +23,7 @@ export class InicioPage implements OnInit {
 
   /*****CARRITO**********/
 
-  carrito = null
+  carrito = { products:[], subtotal: 0, shipping: "", total: 0}
   carritoLocal = null;
 
   constructor(public apis: ApiService, private navCtrl: NavController, private storage: Storage) { }
@@ -35,11 +35,14 @@ export class InicioPage implements OnInit {
   }
 
   /**
-   * Obtiene los datos del perfil mdiente el recurso userProfile
+   * Obtiene los datos del perfil mediente el recurso userProfile
+   * corta el fullName y rescribe soo con el promer nombre
    */
   obtenerDatosPerfil() {
     this.apis.userProfile().subscribe(response => {
       this.datosPerfil = response.data
+      var name = this.datosPerfil.fullName.split(" ")
+      this.datosPerfil.fullName = name[0];
     })
   }
 
@@ -189,7 +192,7 @@ export class InicioPage implements OnInit {
     }
 
     this.carrito.subtotal = total;
-    this.carrito.total = parseFloat(this.carrito.subtotal) + parseFloat(this.carrito.shipping)
+    this.carrito.total = this.carrito.subtotal + parseFloat(this.carrito.shipping)
   }
 
 }

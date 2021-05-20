@@ -1,17 +1,16 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>inicio</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
 
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="{{datosPerfil.picture.medium}}">
-    </ion-avatar>
-    <ion-label>{{datosPerfil.fullName}}</ion-label>
-  </ion-item>
+  <div class="cont-usuario">
+    <div class="cont-datos">
+      <img class="img-user" src="{{datosPerfil.picture.thumbnail}}" alt="">
+      <label class="nombre">Bienvenido, {{datosPerfil.fullName}}</label>
+    </div>
+    <div class="cont-icons">
+      <div *ngIf="carrito.products.length > 0" class="numero-carrito">{{carrito.products.length}}</div>
+      <ion-icon class="icon-user" name="cart-outline"></ion-icon>
+      <ion-icon class="icon-user" name="search-outline"></ion-icon>
+    </div>
+  </div>
 
   <div class="descubre">
     Ofertas del día

@@ -182,3 +182,55 @@
     position: absolute;
     top: -15px;
 }
+
+// usuario
+.cont-usuario {
+    padding: 15px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cont-datos {
+    display: flex;
+    align-items: center;
+}
+
+.nombre {
+    font-weight: 300;
+    font-size: 16px;
+    color: #4F4E4E;
+    margin-left: 5px;
+}
+
+.img-user {
+    border-radius: 100%;
+}
+
+.cont-icons {
+    display: flex;
+    align-items: center;
+    width: 60px;
+    justify-content: space-between;
+    position: relative;
+}
+
+.icon-user {
+    font-size: 25px;
+    --ionicon-stroke-width: 45px;
+}
+
+.numero-carrito {
+    background: #14E80F;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    font-size: 10px;
+    font-weight: bold;
+    position: absolute;
+    left: 15px;
+    top: 0px;
+}
