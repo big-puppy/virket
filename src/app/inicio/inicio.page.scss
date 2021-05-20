@@ -125,3 +125,60 @@
     color: white;
     font-size: 12px;
 }
+
+//carrusel
+.cont-slide {
+    display: flex;
+    overflow-x: auto;
+    width: 96%;
+    margin-top: 30px;
+    padding: 10px 0;
+}
+
+.cont-slide-aux {
+    display: flex;
+    padding: 0px 20px;
+    align-items: center;
+}
+
+.producto-carru {
+    width: 190px;
+    margin-left: 2px;
+    margin-right: 2px;
+    background: #FFFFFF;
+    box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.producto-carru:hover {
+    width: 215px;
+    height: 160px;
+    margin-left: 2px;
+    margin-right: 2px;
+    background: #FFFFFF;
+    box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.calificacion {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0px 10px;
+    position: relative;
+}
+
+.precio-antes {
+    color: var(--naranja-claro);
+    font-size: 10px;
+    font-weight: 500;
+    text-decoration-line: line-through;
+    position: absolute;
+    top: -15px;
+}

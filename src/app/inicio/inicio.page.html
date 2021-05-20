@@ -13,18 +13,39 @@
     <ion-label>{{datosPerfil.fullName}}</ion-label>
   </ion-item>
 
+  <div class="descubre">
+    Ofertas del día
+  </div>
 
-  <ion-list>
-    <ion-list-header>Ofertas del dia </ion-list-header>
+  <div class="cont-slide">
+    <div class="cont-slide-aux">
+      <div (click)="verDetalleProducto(oferta)" *ngFor="let oferta of ofertas" class="producto-carru">
+        <div class="cont-nombre">
+          <label class="txt-negro">{{oferta.product_name}}</label>
+        </div>
+        <div class="cont-img">
+          <img class="img-produ" src="{{oferta.product_image}}" alt="">
+        </div>
 
-    <ion-item (click)="verDetalleProducto(oferta)" *ngFor="let oferta of ofertas">
-      <ion-label>
-        <h2>{{oferta.product_name}}</h2>
-        <p>Antes: {{oferta.precionSinDescuento | currency }} </p>
-        <h3>oferta : {{oferta.product_price | currency}}</h3>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+        <div class="calificacion">
+          <label class="precio-antes">{{oferta.precionSinDescuento | currency }}</label>
+          <label class="precio">{{oferta.product_price | currency}}</label>
+          <div class="estrellas">
+            <ion-icon class="icon-star" name="star" *ngIf="oferta.score > 0"></ion-icon>
+            <ion-icon class="icon-star" name="star" *ngIf="oferta.score > 1"></ion-icon>
+            <ion-icon class="icon-star" name="star" *ngIf="oferta.score > 2"></ion-icon>
+            <ion-icon class="icon-star" name="star" *ngIf="oferta.score > 3"></ion-icon>
+            <ion-icon class="icon-star" name="star" *ngIf="oferta.score > 4"></ion-icon>
+            <ion-icon class="icon-star" name="star-outline" *ngIf="oferta.score < 1"></ion-icon>
+            <ion-icon class="icon-star" name="star-outline" *ngIf="oferta.score < 2"></ion-icon>
+            <ion-icon class="icon-star" name="star-outline" *ngIf="oferta.score < 3"></ion-icon>
+            <ion-icon class="icon-star" name="star-outline" *ngIf="oferta.score < 4"></ion-icon>
+            <ion-icon class="icon-star" name="star-outline" *ngIf="oferta.score < 5"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <div class="descubre">
@@ -56,16 +77,16 @@
         <div class="cont-precio">
           <label class="precio">{{producto.product_price | currency}}</label>
           <div class="estrellas">
-            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 0" ></ion-icon>
-            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 1" ></ion-icon>
-            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 2" ></ion-icon>
-            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 3" ></ion-icon>
-            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 4" ></ion-icon>
-            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 1" ></ion-icon>
-            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 2" ></ion-icon>
-            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 3" ></ion-icon>
-            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 4" ></ion-icon>
-            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 5" ></ion-icon>
+            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 0"></ion-icon>
+            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 1"></ion-icon>
+            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 2"></ion-icon>
+            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 3"></ion-icon>
+            <ion-icon class="icon-star" name="star" *ngIf="producto.score > 4"></ion-icon>
+            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 1"></ion-icon>
+            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 2"></ion-icon>
+            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 3"></ion-icon>
+            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 4"></ion-icon>
+            <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 5"></ion-icon>
           </div>
         </div>
 
