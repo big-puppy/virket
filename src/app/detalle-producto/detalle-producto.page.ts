@@ -11,15 +11,19 @@ import { IonicToastService } from '../services/ionic-toast.service';
 })
 export class DetalleProductoPage {
 
+  MSG_AGREGAR_FAVORITO = "Se agrego a favoritos"
+  MSG_QUITAR_fAVORITO = "Se quito de favoritos"
   MSG_AGREGAR_PRODUCTO = "Producto agregado correctamente"
 
   producto = []
+  productos = [];
   carrito = { products: [], subtotal: 0, shipping: "", total: 0 }
 
   constructor(private navCtrl: NavController, private route: ActivatedRoute, private storage: Storage, public toastController: IonicToastService) { }
 
   ionViewDidEnter() {
     this.obtenerProductoInicio();
+    this.obtenerProductosLocales();
     this.obtenerCarritoLocal();
   }
 
@@ -38,6 +42,22 @@ export class DetalleProductoPage {
    */
   regresar() {
     this.navCtrl.back();
+  }
+
+  /**
+   * busca si hay productos en el local storage
+   */
+   obtenerProductosLocales() {
+    this.storage.get('productos').then((val => {
+      this.productos = val;
+    }));
+  }
+
+  /**
+   * Guarda los prodcutos en local storage
+   */
+   guardarProductosLocales() {
+    this.storage.set("productos", this.productos)
   }
 
   /*************************CARRITO************************/
@@ -71,6 +91,37 @@ export class DetalleProductoPage {
  */
   guardarCarritoLocal() {
     this.storage.set("carrito", this.carrito)
+  }
+
+
+  /***********FAVORITO***************/
+
+  /**
+   * Con base al producto entrante podemos marcarlo como favorito
+   * o no favorito, despues lo reasiganamo en productos
+   * y esos productos los sobrescribimos en el local storage
+   * @param producto 
+   */
+   favoritos(producto) {
+
+    var favorito = true;
+    var noFavorito = false;
+
+    if (producto.is_favorite == true) {
+      producto.is_favorite = noFavorito;
+      this.toastController.showToast(this.MSG_QUITAR_fAVORITO)
+    } else {
+      producto.is_favorite = favorito;
+      this.toastController.showToast(this.MSG_AGREGAR_FAVORITO)
+    }
+
+    for (var x = 0; x < this.productos.length; x++) {
+      if (producto.id == this.productos[x].id) {
+        this.productos[x] = producto
+      }
+    }
+
+    this.guardarProductosLocales();
   }
 
 }
