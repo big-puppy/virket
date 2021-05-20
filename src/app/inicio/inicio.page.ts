@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
@@ -9,7 +9,7 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./inicio.page.scss'],
 })
 
-export class InicioPage implements OnInit {
+export class InicioPage  {
 
   /*****DATOS PERFIL********/
 
@@ -23,12 +23,12 @@ export class InicioPage implements OnInit {
 
   /*****CARRITO**********/
 
-  carrito = { products:[], subtotal: 0, shipping: "", total: 0}
+  carrito = { products: [], subtotal: 0, shipping: "", total: 0 }
   carritoLocal = null;
 
   constructor(public apis: ApiService, private navCtrl: NavController, private storage: Storage) { }
 
-  ngOnInit() {
+  ionViewDidEnter() {
     this.obtenerDatosPerfil();
     this.obtenerProductosLocales();
     this.obtenerCarritoLocal();
@@ -163,7 +163,6 @@ export class InicioPage implements OnInit {
    * Guarda los prodcutos en local storage
    */
   guardarCarritoLocal() {
-    console.log("carrito guardar local => ", this.carrito)
     this.storage.set("carrito", this.carrito)
   }
 
@@ -173,7 +172,7 @@ export class InicioPage implements OnInit {
    * se elimina la propiedad colors
    * @param producto 
    */
-  agregarAlCarrito(producto){
+  agregarAlCarrito(producto) {
     producto["color"] = producto.colors[0]
     delete producto.colors;
     this.carrito.products.push(producto);
@@ -185,10 +184,10 @@ export class InicioPage implements OnInit {
    * calcula el subtotal con base a la suma del product_price de cada producto
    * calcula el total con base a la suma del subtotal y el shipping
    */
-  calcularTotal(){
+  calcularTotal() {
     var total = 0;
-    for(var x=0;x<this.carrito.products.length;x++){
-       total += parseFloat(this.carrito.products[x].product_price);
+    for (var x = 0; x < this.carrito.products.length; x++) {
+      total += parseFloat(this.carrito.products[x].product_price);
     }
 
     this.carrito.subtotal = total;
