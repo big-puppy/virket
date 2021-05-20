@@ -22,6 +22,10 @@
         <p>{{producto.product_price | currency }}  </p>
       </ion-label>
     </ion-item>
+
+    <ion-item>
+      <ion-button (click)="borrarProdcutoDelCarrito(producto)" >Eliminar</ion-button>
+    </ion-item>
   </ion-list>
 
 </ion-content>

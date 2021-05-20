@@ -9,7 +9,7 @@ import { Storage } from '@ionic/storage';
 })
 export class CarritoComprasPage implements OnInit {
 
-  carritoLocal = []
+  carritoLocal = {products:[]}
   constructor(public apis: ApiService, private storage: Storage) { }
 
   ngOnInit() {
@@ -19,11 +19,23 @@ export class CarritoComprasPage implements OnInit {
   /**
    * busca si hay carrito en el local storage
    */
-   obtenerCarritoLocal() {
+  obtenerCarritoLocal() {
     this.storage.get('carrito').then((val => {
       this.carritoLocal = val;
       console.log(this.carritoLocal)
     }));
+  }
+
+  /**
+   * Borra el producto selccionado del carrito
+   * @param producto 
+   */
+  borrarProdcutoDelCarrito(producto) {
+    for (var x = 0; x < this.carritoLocal.products.length; x++) {
+      if (producto.id == this.carritoLocal.products[x].id) {
+        this.carritoLocal.products.splice(x, 1)
+      }
+    }
   }
 
 }
