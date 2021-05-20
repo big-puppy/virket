@@ -17,7 +17,7 @@
   <ion-list>
     <ion-list-header>Ofertas del dia </ion-list-header>
 
-    <ion-item *ngFor="let oferta of ofertas">
+    <ion-item (click)="verDetalleProducto(oferta)" *ngFor="let oferta of ofertas">
       <ion-label>
         <h2>{{oferta.product_name}}</h2>
         <p>Antes: {{oferta.precionSinDescuento | currency }}  </p>
@@ -33,7 +33,7 @@
 
   <div class="cont-productos">
 
-    <div class="producto" *ngFor="let producto of productos">
+    <div (click)="verDetalleProducto(producto)" class="producto" *ngFor="let producto of productos">
 
       <div *ngIf="producto.is_favorite == true" class="favorito">
         <ion-icon class="icon-corazon" name="heart"></ion-icon>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 @Component({
   selector: 'app-inicio',
@@ -12,7 +14,7 @@ export class InicioPage implements OnInit {
   productos = [] ;
   ofertas = [] ;
 
-  constructor(public apis: ApiService) { }
+  constructor(public apis: ApiService, private navCtrl: NavController) { }
 
 ngOnInit() {
   this.obtenerDatosPerfil();
@@ -41,6 +43,13 @@ ontenerOfertasDelDia(){
   }
 }
 
-  
+  verDetalleProducto(producto){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        producto : JSON.stringify(producto)
+      }
+    }
+    this.navCtrl.navigateRoot(["detalle-producto"], navigationExtras);
+  }
 
 }
