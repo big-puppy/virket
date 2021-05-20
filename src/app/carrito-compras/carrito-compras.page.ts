@@ -12,11 +12,11 @@ export class CarritoComprasPage {
 
   MSG_BORRAR_PRODUCTO = "Prodcuto eliminado"
 
-  carrito = { products:[], subtotal: 0, shipping: "", total: 0}
+  carrito = { products: [], subtotal: 0, shipping: "", total: 0 }
 
   constructor(public apis: ApiService, private storage: Storage, public toastController: IonicToastService) { }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.obtenerCarritoLocal();
   }
 
@@ -26,6 +26,8 @@ export class CarritoComprasPage {
   obtenerCarritoLocal() {
     this.storage.get('carrito').then((val => {
       this.carrito = val;
+      this.establecerEnvio()
+      this.calcularTotal();
     }));
   }
 
@@ -39,16 +41,15 @@ export class CarritoComprasPage {
         this.carrito.products.splice(x, 1)
       }
     }
-
+    this.establecerEnvio();
     this.calcularTotal();
-    this.guardarCarritoLocal();
     this.toastController.showToast(this.MSG_BORRAR_PRODUCTO);
   }
 
   /**
-   * Guarda los prodcutos en local storage
+   * Guarda los prodcutos en el carrito del local storage
    */
-   guardarCarritoLocal() {
+  guardarCarritoLocal() {
     this.storage.set("carrito", this.carrito)
   }
 
@@ -56,14 +57,26 @@ export class CarritoComprasPage {
    * calcula el subtotal con base a la suma del product_price de cada producto
    * calcula el total con base a la suma del subtotal y el shipping
    */
-   calcularTotal(){
+  calcularTotal() {
     var total = 0;
-    for(var x=0;x<this.carrito.products.length;x++){
-       total += parseFloat(this.carrito.products[x].product_price);
+    for (var x = 0; x < this.carrito.products.length; x++) {
+      total += parseFloat(this.carrito.products[x].product_price);
     }
-
     this.carrito.subtotal = total;
     this.carrito.total = this.carrito.subtotal + parseFloat(this.carrito.shipping)
+    this.guardarCarritoLocal();
+  }
+
+  /**
+   * Establece el shipping cuando no hay prodcutos a 0
+   * y cuando hay uno o mas productos a 150
+   */
+  establecerEnvio() {
+    if (this.carrito.products.length > 0) {
+      this.carrito.shipping = "150";
+    } else if (this.carrito.products.length == 0) {
+      this.carrito.shipping = "";
+    }
   }
 
 }
