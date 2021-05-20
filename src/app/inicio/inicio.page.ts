@@ -49,6 +49,8 @@ export class InicioPage {
     })
   }
 
+  /********************PRODUCTOS*****************/
+
   /**
    * Valida si hay productos en el local sotorage
    * si hay los asignamos a la vairable principal this.prodcutos
@@ -57,16 +59,12 @@ export class InicioPage {
   obtenerProductos() {
     if (this.productosLocales != null) {
       this.productos = this.productosLocales;
-      for (var x = 0; x < this.productos.length; x++) {
-        this.productos[x].agregar = false;
-      }
+      this.manejoDeropiedadSeccion();
       this.ontenerOfertasDelDia();
     } else {
       this.apis.allProducts().subscribe(response => {
         this.productos = response.data
-        for (var x = 0; x < this.productos.length; x++) {
-          this.productos[x].agregar = false;
-        }
+        this.manejoDeropiedadSeccion();
         this.guardarProductosLocales();
         this.ontenerOfertasDelDia();
       })
@@ -123,7 +121,7 @@ export class InicioPage {
    * y esos productos los sobrescribimos en el local storage
    * @param producto 
    */
-  favoritos(producto,i) {
+  favoritos(producto,index) {
 
     var favorito = true;
     var noFavorito = false;
@@ -140,7 +138,7 @@ export class InicioPage {
       }
     }
 
-    this.ocultar(i);
+    this.ocultarSeccion(index);
 
     this.guardarProductosLocales();
   }
@@ -148,19 +146,39 @@ export class InicioPage {
 
   /*************************CARRITO************************/
 
-  mostrar(i) {
+  /**
+   * Muestra la seccion para añadir al carito o marcar como favotiro
+   * @param indice 
+   */
+  mostrarSeccion(indice) {
+
+    this.manejoDeropiedadSeccion();
+
+    this.productos[indice].seccion = true;
+  }
+
+  /**
+   * Oculta la seccion para añadir al carito o marcar como favotiro
+   * @param indice 
+   */
+  ocultarSeccion(indice) {
+
+    this.productos[indice].seccion = false;
+  }
+
+  /**
+   * Agrega el atributo seccion a todos los productos 
+   * con el valor false
+   */
+  manejoDeropiedadSeccion(){
 
     for (var x = 0; x < this.productos.length; x++) {
-      this.productos[x].agregar = false;
+      this.productos[x].seccion = false;
     }
-
-    this.productos[i].agregar = true;
+    
   }
 
-  ocultar(i) {
-
-    this.productos[i].agregar = false;
-  }
+  
 
   obtenerCarrito() {
 
@@ -203,7 +221,7 @@ export class InicioPage {
     this.carrito.products.push(producto);
     this.calcularTotal();
     this.guardarCarritoLocal();
-    this.ocultar(i)
+    this.ocultarSeccion(i)
     this.toastController.showToast('Producto agregado correctamente')
   }
 

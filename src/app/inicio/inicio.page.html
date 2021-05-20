@@ -54,7 +54,9 @@
   <div class="cont-productos">
 
     <div class="producto" *ngFor="let producto of productos let i = index">
-      <ng-container *ngIf="!producto.agregar">
+
+      <ng-container *ngIf="!producto.seccion">
+
         <div *ngIf="producto.is_favorite == true" class="favorito">
           <ion-icon class="icon-corazon" name="heart"></ion-icon>
         </div>
@@ -89,23 +91,31 @@
             </div>
           </div>
 
-          <div (click)="mostrar(i)" class="cont-mas">
+          <div (click)="mostrarSeccion(i)" class="cont-mas">
             <ion-icon name="add" class="icon-mas"></ion-icon>
           </div>
+
         </div>
+
       </ng-container>
-      <div class="cont-agregar" *ngIf="producto.agregar">
+
+      <div class="cont-agregar" *ngIf="producto.seccion">
+
         <div class="cerrar">
-          <ion-icon class="icon-cerrar" (click)="ocultar(i)" name="chevron-down"></ion-icon>
+          <ion-icon class="icon-cerrar" (click)="ocultarSeccion(i)" name="chevron-down"></ion-icon>
         </div>
+
         <div (click)="favoritos(producto, i)" class="agregar-favoritos">
           Agregar a favoritos
         </div>
+
         <div (click)="agregarAlCarrito(producto,i)" class="agregar-carrito">
           <img src="assets/icons/add_shopping_cart.svg" class="icon-carrito" />
           Agregar al carrito
         </div>
+
       </div>
+
     </div>
 
   </div>
