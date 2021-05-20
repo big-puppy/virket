@@ -33,13 +33,13 @@
 
   <div class="cont-productos">
 
-    <div (click)="verDetalleProducto(producto)" class="producto" *ngFor="let producto of productos">
+    <div class="producto" *ngFor="let producto of productos">
 
-      <div *ngIf="producto.is_favorite == true" class="favorito">
+      <div (click)="favoritos(producto)" *ngIf="producto.is_favorite == true" class="favorito">
         <ion-icon class="icon-corazon" name="heart"></ion-icon>
       </div>
 
-      <div *ngIf="producto.is_favorite == false" class="no-favorito">
+      <div (click)="favoritos(producto)" *ngIf="producto.is_favorite == false" class="no-favorito">
         <ion-icon class="icon-corazon" name="heart"></ion-icon>
       </div>
 
@@ -48,7 +48,7 @@
         <label class="txt-negro">{{producto.product_name}}</label>
       </div>
 
-      <div class="cont-img">
+      <div (click)="verDetalleProducto(producto)" class="cont-img">
         <img class="img-produ" src="{{producto.product_image}}" alt="">
       </div>
 

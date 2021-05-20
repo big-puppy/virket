@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
@@ -11,45 +12,112 @@ import { ApiService } from '../services/api.service';
 export class InicioPage implements OnInit {
 
   datosPerfil = { picture: {} };
-  productos = [] ;
-  ofertas = [] ;
+  productos = [];
+  productosLocales = null
+  ofertas = [];
 
-  constructor(public apis: ApiService, private navCtrl: NavController) { }
+  constructor(public apis: ApiService, private navCtrl: NavController, private storage: Storage) { }
 
-ngOnInit() {
-  this.obtenerDatosPerfil();
-  this.obtenerProductos();
-}
+  ngOnInit() {
+    this.obtenerDatosPerfil();
+    this.obtenerProductosLocales();
+  }
 
-obtenerDatosPerfil() {
-  this.apis.userProfile().subscribe(response => {
-    this.datosPerfil = response.data
-  })
-}
+  /**
+   * Obtiene los datos del perfil mdiente el recurso userProfile
+   */
+  obtenerDatosPerfil() {
+    this.apis.userProfile().subscribe(response => {
+      this.datosPerfil = response.data
+    })
+  }
 
-obtenerProductos() {
-  this.apis.allProducts().subscribe(response => {
-    this.productos = response.data
+  /**
+   * Valida si hay productos en el local sotorage
+   * si hay los asignamos a la vairable principal this.prodcutos
+   * si no hay consumimos el recurso de allProducts y los asignamos a la vairable principal this.prodcutos
+   */
+  obtenerProductos() {
+    if(this.productosLocales != null){
+      this.productos = this.productosLocales;
+    }else{
+      this.apis.allProducts().subscribe(response => {
+        this.productos = response.data
+        this.guardarProductosLocales();
+      })
+    }
+
     this.ontenerOfertasDelDia();
-  })
-}
+  }
 
-ontenerOfertasDelDia(){
-  for(var x = 0;x<this.productos.length;x++){
-    if(this.productos[x].discount > 0 ){
-      this.productos[x]["precionSinDescuento"] = parseFloat(this.productos[x].discount) + parseFloat(this.productos[x].product_price)
-      this.ofertas.push(this.productos[x]);
+  /**
+   * busca si hay productos en el local storage
+   */
+  obtenerProductosLocales(){
+    this.storage.get('productos').then((val => {
+      this.productosLocales = val;
+      this.obtenerProductos();
+    }));
+  }
+
+  /**
+   * Guarda los prodcutos en local storage
+   */
+  guardarProductosLocales(){
+    this.storage.set("productos",this.productos)
+  }
+
+  /**
+   * Obtiene las ofertas del dia filtrano los productos que tengan discount > 0
+   * y agrega un nuevo atributo precionSinDescuento que es la suma del discount y product_price 
+   */
+  ontenerOfertasDelDia() {
+    for (var x = 0; x < this.productos.length; x++) {
+      if (this.productos[x].discount > 0) {
+        this.productos[x]["precionSinDescuento"] = parseFloat(this.productos[x].discount) + parseFloat(this.productos[x].product_price)
+        this.ofertas.push(this.productos[x]);
+      }
     }
   }
-}
 
-  verDetalleProducto(producto){
+  /**
+   * Con base al producto entrante navegamos a la pagina detalle-producto y podemos
+   * ver el detalle de ese producto
+   * @param producto 
+   */
+  verDetalleProducto(producto) {
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        producto : JSON.stringify(producto)
+        producto: JSON.stringify(producto)
       }
     }
     this.navCtrl.navigateRoot(["detalle-producto"], navigationExtras);
+  }
+
+  /**
+   * Con base al producto entrante podemos marcarlo como favorito
+   * o no favorito, despues lo reasiganamo en productos
+   * y esos productos los sobrescribimos en el local storage
+   * @param producto 
+   */
+  favoritos(producto) {
+
+    var favorito = true;
+    var noFavorito = false;
+
+    if (producto.is_favorite == true) {
+      producto.is_favorite = noFavorito;
+    } else {
+      producto.is_favorite = favorito;
+    }
+
+    for (var x = 0; x < this.productos.length; x++) {
+      if (producto.id == this.productos[x].id) {
+        this.productos[x] = producto
+      }
+    }
+
+    this.guardarProductosLocales();
   }
 
 }
