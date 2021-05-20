@@ -184,8 +184,10 @@ export class InicioPage {
 
   }
 
-
-
+/**
+ * si el carrito local tiene datos se asigna a la variable principal this.carrito
+ * si el caarito local es null se consume el recurso shoppingCart y se asigna a la variable principal this.carrito
+ */
   obtenerCarrito() {
 
     if (this.carritoLocal != null) {
