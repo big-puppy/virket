@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: () => import('../carrito-compras/carrito-compras.module').then(m => m.CarritoComprasPageModule)
       },
       {
+        path: 'filtros',
+        loadChildren: () => import('../filtros/filtros.module').then( m => m.FiltrosPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/inicio',
         pathMatch: 'full'
