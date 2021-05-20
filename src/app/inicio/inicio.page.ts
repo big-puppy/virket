@@ -164,11 +164,32 @@ export class InicioPage implements OnInit {
     this.storage.set("carrito", this.carrito)
   }
 
+  /**
+   * Agregar prodcuto entrante al carrito local
+   * se crea la propiedad color y se asigna la poscion 0 de colors
+   * se elimina la propiedad colors
+   * @param producto 
+   */
   agregarAlCarrito(producto){
     producto["color"] = producto.colors[0]
     delete producto.colors;
     this.carrito.products.push(producto);
+    this.calcularTotal();
     this.guardarCarritoLocal();
+  }
+
+  /**
+   * calcula el subtotal con base a la suma del product_price de cada producto
+   * calcula el total con base a la suma del subtotal y el shipping
+   */
+  calcularTotal(){
+    var total = 0;
+    for(var x=0;x<this.carrito.products.length;x++){
+       total += parseFloat(this.carrito.products[x].product_price);
+    }
+
+    this.carrito.subtotal = total;
+    this.carrito.total = parseFloat(this.carrito.subtotal) + parseFloat(this.carrito.shipping)
   }
 
 }
