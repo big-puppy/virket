@@ -1,1 +1,24 @@
+.tab-custom {
+    width: 60px;
+    height: 60px;
+    background-color: var(--naranja);
+    margin-top: -20px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.cont-tabs {
+    contain: none !important;
+}
+
+.tab-aux {
+    position: absolute;
+    height: 80px;
+}
+
+.icon-carrito {
+    font-size: 30px;
+    color: white;
+}
