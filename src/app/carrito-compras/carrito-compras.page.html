@@ -1,33 +1,63 @@
 <ion-content>
 
-  <ion-list>
-    <ion-list-header>Carrito de compras</ion-list-header>
-    <div *ngFor="let producto of carrito.products">
-      <ion-item>
-        <ion-avatar slot="start">
-          <img src="{{producto.product_image}}">
-        </ion-avatar>
-        <ion-label>{{producto.product_name}}</ion-label>
-      </ion-item>
+  <div [ngClass]="seccionarPantalla">
 
-      <ion-item>
-        <ion-label>
-          <h2>{{producto.color.name}}</h2>
-          <p>{{producto.product_price | currency }} </p>
-        </ion-label>
-        <ion-button (click)="borrarProdcutoDelCarrito(producto)">Eliminar</ion-button>
-      </ion-item>
+    <div class="descubre">
+      Carrito de compras
+    </div>
+
+    <div *ngFor="let producto of carrito.products" class="cont-items">
+      <div class="item">
+        <img class="item-img" src="{{producto.product_image}}" alt="">
+        <div class="txt-item">
+          <label class="nombre">{{producto.product_name}}</label>
+          <label class="color">Color {{producto.color.name}}</label>
+        </div>
+        <label class="precio">{{producto.product_price | currency }}</label>
+
+        <ion-icon (click)="borrarProdcutoDelCarrito(producto)" class="quitar" name="remove-circle-outline"></ion-icon>
+      </div>
 
     </div>
-  </ion-list>
 
-  <ion-item>
-    <ion-label>
-      <p>Subtotal: {{carrito.subtotal | currency}}</p>
-      <p> osto de envio: {{carrito.shipping}}</p>
-      <h2>Total :{{carrito.total | currency}}</h2>
-    </ion-label>
-  </ion-item>
-  
+  </div>
+  <div class="cont-gris-abajo" *ngIf="!banderaMenuTotal">
 
+    <div class="cont-info" (click)="mostrarTotal()">
+      Información de pago
+      <ion-icon class="flecha-arriba" name="chevron-up-outline"></ion-icon>
+    </div>
+
+    <div class="btn-proceder">
+      Proceder al pago
+    </div>
+  </div>
+
+  <div class="cont-info-completa" *ngIf="banderaMenuTotal">
+
+    <div class="cont-flecha">
+      <ion-icon (click)="ocultarTotal()" class="flecha-abajo" name="chevron-down-outline"></ion-icon>
+    </div>
+
+    <label class="txt-info">Información de pago</label>
+
+    <div class="cont-costos">
+      <label class="txt-gris">Subtotal: </label>
+      <label class="txt-precio">{{carrito.subtotal | currency}}</label>
+    </div>
+
+    <div class="cont-costos">
+      <label class="txt-gris">Costo de envio </label>
+      <label class="txt-precio">{{carrito.shipping | currency}}</label>
+    </div>
+
+    <div class="cont-total">
+      <label class="txt-precio">Total</label>
+      <label class="txt-precio">{{carrito.total | currency}}</label>
+    </div>
+
+    <div class="btn-proceder">
+      Proceder al pago
+    </div>
+  </div>
 </ion-content>

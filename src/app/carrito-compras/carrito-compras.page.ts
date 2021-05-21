@@ -13,6 +13,9 @@ export class CarritoComprasPage {
 
   carrito = { products: [], subtotal: 0, shipping: "", total: 0 }
 
+  seccionarPantalla = "cont-gris"
+  banderaMenuTotal = false;
+
   constructor(private storage: Storage, public toastController: IonicToastService) { }
 
   ionViewDidEnter() {
@@ -76,6 +79,22 @@ export class CarritoComprasPage {
     } else if (this.carrito.products.length == 0) {
       this.carrito.shipping = "";
     }
+  }
+
+  /**
+   * Muestra la info del total
+   */
+  mostrarTotal() {
+    this.banderaMenuTotal = true;
+    this.seccionarPantalla = "cont-gris-aux"
+  }
+
+  /**
+   * Oculta la info del total
+   */
+  ocultarTotal() {
+    this.banderaMenuTotal = false;
+    this.seccionarPantalla = "cont-gris"
   }
 
 }
