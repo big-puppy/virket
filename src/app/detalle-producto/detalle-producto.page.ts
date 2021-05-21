@@ -15,6 +15,7 @@ export class DetalleProductoPage {
   MSG_QUITAR_fAVORITO = "Se quito de favoritos"
   MSG_AGREGAR_PRODUCTO = "Producto agregado correctamente"
 
+  color = 0;
   producto = []
   productos = [];
   carrito = { products: [], subtotal: 0, shipping: "", total: 0 }
@@ -33,7 +34,6 @@ export class DetalleProductoPage {
   obtenerProductoInicio() {
     this.route.queryParams.subscribe(params => {
       this.producto = JSON.parse(params["producto"])
-      console.log("produdto => ", this.producto)
     })
   }
 
@@ -47,7 +47,7 @@ export class DetalleProductoPage {
   /**
    * busca si hay productos en el local storage
    */
-   obtenerProductosLocales() {
+  obtenerProductosLocales() {
     this.storage.get('productos').then((val => {
       this.productos = val;
     }));
@@ -56,8 +56,24 @@ export class DetalleProductoPage {
   /**
    * Guarda los prodcutos en local storage
    */
-   guardarProductosLocales() {
+  guardarProductosLocales() {
     this.storage.set("productos", this.productos)
+  }
+
+  /**
+   * Enfoca el color que selccionas
+   * obtiene el indice del color seleccionado y lo guarda en this.color
+   * @param div 
+   * @param index 
+   */
+  enfocarColor(div, index) {
+    var elemento = document.getElementById("cont-colores");
+    this.color = index;
+    for (var x = 0; x < elemento.children.length; x++) {
+      elemento.children[x].className = "color"
+    }
+    div.srcElement.className = "color-selec";
+
   }
 
   /*************************CARRITO************************/
@@ -77,8 +93,8 @@ export class DetalleProductoPage {
   * se elimina la propiedad colors
   * @param producto 
   */
-  agregarAlCarrito(producto, i) {
-    producto["color"] = producto.colors[i]
+  agregarAlCarrito(producto) {
+    producto["color"] = producto.colors[this.color]
     delete producto.colors;
     this.carrito.products.push(producto);
     this.guardarCarritoLocal();
@@ -102,7 +118,7 @@ export class DetalleProductoPage {
    * y esos productos los sobrescribimos en el local storage
    * @param producto 
    */
-   favoritos(producto) {
+  favoritos(producto) {
 
     var favorito = true;
     var noFavorito = false;

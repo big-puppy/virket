@@ -1,23 +1,69 @@
-
 <ion-content>
-  <div (click)="regresar()" class="nav-one-icon">
-    <img src="assets/icons/back_button.svg">
+
+  <div class="cont-gris">
+    <div class="iconos-top">
+      <div *ngIf="carrito.products.length > 0" class="numero-carrito">{{carrito.products.length}}</div>
+      <ion-icon (click)="regresar()" class="icon-user" name="chevron-back-outline"></ion-icon>
+      <ion-icon class="icon-user" name="cart-outline"></ion-icon>
+    </div>
+
+    <div class="cont-imagen">
+      <img class="img-audifono" src="{{producto.product_image}}" alt="">
+    </div>
+
+    <div class="cont-titulo-produ">
+      <label class="titulo">{{producto.product_name}}</label>
+      <label class="marca">{{producto.brand}}</label>
+    </div>
+
+    <div class="cont-calificacion">
+      <div class="estrellas">
+        <ion-icon class="icon-star" name="star" *ngIf="producto.score > 0"></ion-icon>
+        <ion-icon class="icon-star" name="star" *ngIf="producto.score > 1"></ion-icon>
+        <ion-icon class="icon-star" name="star" *ngIf="producto.score > 2"></ion-icon>
+        <ion-icon class="icon-star" name="star" *ngIf="producto.score > 3"></ion-icon>
+        <ion-icon class="icon-star" name="star" *ngIf="producto.score > 4"></ion-icon>
+        <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 1"></ion-icon>
+        <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 2"></ion-icon>
+        <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 3"></ion-icon>
+        <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 4"></ion-icon>
+        <ion-icon class="icon-star" name="star-outline" *ngIf="producto.score < 5"></ion-icon>
+      </div>
+
+      <label class="resena">{{producto.reviews}} reseñas</label>
+
+      <label class="precio">{{producto.product_price | currency}}</label>
+    </div>
   </div>
 
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="{{producto.product_image}}">
-    </ion-avatar>
-    <ion-label>{{producto.product_name}}</ion-label>
-  </ion-item>
+  <div class="cont-blanco">
+    <label class="subtitulo">Colores</label>
 
-  <ion-item>
-    <ion-label>
-      <h2>{{producto.description}}</h2>
-      <p>{{producto.brand }} </p>
-      <h3>{{producto.product_price | currency}}</h3>
-    </ion-label>
-  </ion-item>
-  <ion-button (click)="favoritos(producto)">Favorito</ion-button>
-  <ion-button (click)="agregarAlCarrito(producto, 0)" >Agregar carrito</ion-button>
+    <div class="cont-colores" id="cont-colores">
+      <div *ngFor="let color of producto.colors let i=index" (click)="enfocarColor($event, i)" class="color"style="background-color: {{color.hex}};"></div>
+    </div>
+
+    <label class="subtitulo">Descripción</label>
+
+    <label class="desc">
+      {{producto.description}}
+    </label>
+  </div>
+
+  <div class="cont-botones">
+
+    <div (click)="favoritos(producto)" *ngIf="producto.is_favorite == false" class="no-favorito">
+      <ion-icon class="icon-corazon" name="heart-outline"></ion-icon>
+    </div>
+
+    <div (click)="favoritos(producto)" *ngIf="producto.is_favorite == true" class="favorito">
+      <ion-icon class="icon-corazon-blanco" name="heart"></ion-icon>
+    </div>
+
+    <div (click)="agregarAlCarrito(producto)" class="cont-agregar">
+      <img src="assets/icons/add_shopping_cart.svg" class="icon-carrito" />
+       Agregar al carrito
+    </div>
+  </div>
+
 </ion-content>

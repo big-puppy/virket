@@ -1,0 +1,198 @@
+.cont-gris {
+    background-color: #F7F7F7;
+    padding-bottom: 20px;
+}
+
+.iconos-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 15px;
+    align-items: center;
+    position: relative;
+}
+
+.icon-user {
+    font-size: 25px;
+    --ionicon-stroke-width: 45px;
+}
+
+.numero-carrito {
+    background: #14E80F;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    font-size: 10px;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    top: 12px;
+}
+
+.img-audifono {
+    width: 120px;
+    margin-top: -25px;
+    transform: rotate(25deg);
+}
+
+.cont-imagen {
+    display: flex;
+    justify-content: center;
+}
+
+.cont-titulo-produ {
+    padding: 5px 15px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.titulo {
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 40px;
+}
+
+.marca {
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--gris-claro);
+}
+
+.cont-calificacion {
+    padding: 3px 15px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.icon-star {
+    color: #FFD056;
+    font-size: 12px;
+}
+
+.estrellas {
+    display: flex;
+    justify-content: space-around;
+}
+
+.resena {
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--gris-claro);
+    margin-left: -10px;
+}
+
+.precio {
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--naranja);
+}
+
+.cont-blanco {
+    padding: 20px 15px;
+    border-radius: 50px 50px 0px 0px;
+    margin-top: -15px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.subtitulo {
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--gris);
+}
+
+.desc {
+    margin-top: 5px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    color: #A6A6A6;
+}
+
+.cont-botones {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+    margin-top: 15px;
+}
+
+.no-favorito {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 5px 20px 3px rgba(0, 0, 0, 0.2);
+}
+
+.icon-corazon {
+    color: var(--gris-claro);
+    font-size: 25px;
+}
+
+.favorito {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 5px 20px 3px rgba(0, 0, 0, 0.2);
+}
+
+.icon-corazon-blanco {
+    color: var(--rojo);
+    font-size: 25px;
+}
+
+.cont-agregar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--naranja);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    height: 45px;
+    border-radius: 45px;
+    padding-right: 10px;
+    padding-left: 25px;
+}
+
+.icon-carrito {
+    margin-right: 3px;
+    filter: invert(99%) sepia(36%) saturate(2%) hue-rotate(263deg) brightness(110%) contrast(100%);
+}
+
+.cont-colores {
+    display: flex;
+    margin: 7px 0px;
+}
+
+.color {
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    margin-right: 8px;
+}
+
+.color-selec {
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    margin-right: 8px;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.25);
+}
