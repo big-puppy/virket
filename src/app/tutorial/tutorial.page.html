@@ -1,9 +1,15 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>tutorial</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-button (click)="guardarSesion()" >Comenzar</ion-button>
+  <div class="cont-img-header">
+    <img class="img-header" src="assets/imgs/logo.png" alt="">
+    <img class="img-welcome" src="assets/imgs/welcome.png" alt="">
+  </div>
+
+  <div class="textos">
+    <label class="encuentra">Encuentra los mejores audifonos</label>
+    <label class="busca">Busca y adquiere los mejores audifonos de las mejores marcas al alcance de tu móvil.</label>
+  </div>
+
+  <div (click)="guardarSesion()" class="btn-continuar">
+    Comenzar
+  </div>
 </ion-content>
