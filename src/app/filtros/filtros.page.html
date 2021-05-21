@@ -1,5 +1,18 @@
 <ion-content>
 
+  <div class="selecciona">
+    Selecciona la marca
+    <ion-icon class="icon-busc" name="search-outline"></ion-icon>
+  </div>
+
+  <div class="cont-slide-catego">
+    <div class="cont-slide-aux">
+      <div (click)="filtrarProductos(i)" *ngFor="let filtro of filtros let i = index" [ngClass]="filtro.clase">
+        {{filtro.nombre}}
+      </div>
+    </div>
+  </div>
+
   <div class="cont-productos">
 
     <div class="producto" *ngFor="let producto of productos let i = index">

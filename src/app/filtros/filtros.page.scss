@@ -110,3 +110,51 @@
     color: white;
     font-size: 12px;
 }
+
+//filtro
+.selecciona {
+    font-size: 24px;
+    font-weight: 500;
+    margin-left: 20px;
+    margin-top: 20px;
+    color: var(--gris);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon-busc {
+    margin-right: 15px;
+    font-size: 25px;
+    --ionicon-stroke-width: 45px;
+}
+
+.cont-slide-catego {
+    display: flex;
+    overflow-x: auto;
+    width: 96%;
+    margin-top: 5px;
+    padding: 10px 0;
+}
+
+.cont-slide-aux {
+    display: flex;
+    padding: 0px 20px;
+    align-items: center;
+}
+
+.catego {
+    background-color: #DCDCDC;
+    color: var(--gris);
+    padding: 7px 20px;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.catego-sele {
+    background-color: #C4C4C4;
+    color: white;
+    padding: 7px 20px;
+    border-radius: 20px;
+    margin-right: 10px;
+}
