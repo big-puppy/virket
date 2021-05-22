@@ -8,16 +8,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { IonicStorageModule } from '@ionic/storage';
 
 import { NavController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
-
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, IonicStorageModule.forRoot()],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
@@ -25,7 +22,7 @@ export class AppModule {
 
   sesion;
 
-  constructor(private storage: Storage, private navCtrl: NavController){
+  constructor(private navCtrl: NavController){
     this.obtenerSesion()
   }
  
@@ -35,17 +32,13 @@ export class AppModule {
    */
   obtenerSesion() {
     
-    this.storage.get('sesion').then((val => {
-
-      this.sesion = val;
+    this.sesion = localStorage.getItem('sesion')
 
       if (this.sesion == 'true') {
         this.irPagina("tabs")
       }else{
         this.irPagina("tutorial")
       }
-
-    }));
   }
 
   /**

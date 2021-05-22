@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-tutorial',
   templateUrl: './tutorial.page.html',
@@ -8,13 +7,13 @@ import { Storage } from '@ionic/storage';
 })
 export class TutorialPage {
 
-  constructor(private storage: Storage, private navCtrl: NavController) { }
+  constructor(private navCtrl: NavController) { }
 
   /**
    * Guarda la sesion para informar que el tutorial ya se vio
    */
   guardarSesion() {
-    this.storage.set('sesion', 'true');
+    localStorage.setItem('sesion', 'true');
     this.irPagina()
   }
 
