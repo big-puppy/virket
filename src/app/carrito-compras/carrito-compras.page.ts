@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { IonicToastService } from '../services/toast/ionic-toast.service';
 
 @Component({
@@ -16,21 +15,19 @@ export class CarritoComprasPage {
   seccionarPantalla = "cont-gris"
   banderaMenuTotal = false;
 
-  constructor(private storage: Storage, public toastController: IonicToastService) { }
+  constructor(public toastController: IonicToastService) { }
 
   ionViewDidEnter() {
     this.obtenerCarritoLocal();
   }
 
   /**
-   * busca si hay carrito en el local storage
+   * busca si hay carrito en sesion
    */
   obtenerCarritoLocal() {
-    this.storage.get('carrito').then((val => {
-      this.carrito = val;
-      this.establecerEnvio()
-      this.calcularTotal();
-    }));
+    this.carrito = JSON.parse(sessionStorage.getItem("carrito"))
+    this.establecerEnvio()
+    this.calcularTotal();
   }
 
   /**
@@ -49,10 +46,10 @@ export class CarritoComprasPage {
   }
 
   /**
-   * Guarda los prodcutos en el carrito del local storage
+   * Guarda los prodcutos en el carrito de sesion
    */
   guardarCarritoLocal() {
-    this.storage.set("carrito", this.carrito)
+    sessionStorage.setItem("carrito", JSON.stringify(this.carrito))
   }
 
   /**

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ApiService } from '../services/recursos-api/api.service';
-import { Storage } from '@ionic/storage';
 import { IonicToastService } from '../services/toast/ionic-toast.service';
 @Component({
   selector: 'app-inicio',
@@ -33,7 +32,7 @@ export class InicioPage {
   carrito = { products: [], subtotal: 0, shipping: "", total: 0 }
   carritoLocal = null;
 
-  constructor(public apis: ApiService, private navCtrl: NavController, private storage: Storage, public toastController: IonicToastService) { }
+  constructor(public apis: ApiService, private navCtrl: NavController, public toastController: IonicToastService) { }
 
   ionViewDidEnter() {
     this.obtenerDatosPerfil();
@@ -76,20 +75,18 @@ export class InicioPage {
   }
 
   /**
-   * busca si hay productos en el local storage
+   * busca si hay productos en la sesion
    */
   obtenerProductosLocales() {
-    this.storage.get('productos').then((val => {
-      this.productosLocales = val;
-      this.obtenerProductos();
-    }));
+    this.productosLocales = JSON.parse(sessionStorage.getItem("productos"));
+    this.obtenerProductos();
   }
 
   /**
-   * Guarda los prodcutos en local storage
+   * Guarda los prodcutos en sesion
    */
   guardarProductosLocales() {
-    this.storage.set("productos", this.productos)
+    sessionStorage.setItem('productos', JSON.stringify(this.productos));
   }
 
   /**
@@ -122,7 +119,7 @@ export class InicioPage {
   /**
    * Con base al producto entrante podemos marcarlo como favorito
    * o no favorito, despues lo reasiganamo en productos
-   * y esos productos los sobrescribimos en el local storage
+   * y esos productos los sobrescribimos en sesion
    * @param producto 
    */
   favoritos(producto, index) {
@@ -201,20 +198,18 @@ export class InicioPage {
   }
 
   /**
-   * busca si hay carrito en el local storage
+   * busca si hay carrito en sesion
    */
   obtenerCarritoLocal() {
-    this.storage.get('carrito').then((val => {
-      this.carritoLocal = val;
-      this.obtenerCarrito();
-    }));
+    this.carritoLocal = JSON.parse(sessionStorage.getItem("carrito"))
+    this.obtenerCarrito();
   }
 
   /**
-   * Guarda los prodcutos en el carrito del local storage
+   * Guarda los prodcutos en el carrito de sesion
    */
   guardarCarritoLocal() {
-    this.storage.set("carrito", this.carrito)
+    sessionStorage.setItem("carrito", JSON.stringify(this.carrito))
   }
 
   /**

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 
@@ -16,21 +15,19 @@ export class FiltrosPage {
   filtros = []
   estiloFiltro = "catego";
 
-  constructor(private storage: Storage, private navCtrl: NavController) { }
+  constructor(private navCtrl: NavController) { }
 
   ionViewDidEnter() {
     this.obtenerProductosLocales();
   }
 
   /**
-   * busca si hay productos en el local storage
+   * busca si hay productos en sesion
    */
   obtenerProductosLocales() {
-    this.storage.get('productos').then((val => {
-      this.productos = val;
-      this.productosCopia = this.productos;
-      this.obtenerFiltros()
-    }));
+    this.productos = JSON.parse(sessionStorage.getItem("productos"))
+    this.productosCopia = this.productos;
+    this.obtenerFiltros()
   }
 
   /**
@@ -47,10 +44,10 @@ export class FiltrosPage {
     this.navCtrl.navigateRoot(["detalle-producto"], navigationExtras);
   }
 
-/**
- * creacion de un arreglo pra guardar solo el dato de la propiedad brand
- * se agrega un objeto para tener el filtro todos
- */
+  /**
+   * creacion de un arreglo pra guardar solo el dato de la propiedad brand
+   * se agrega un objeto para tener el filtro todos
+   */
   obtenerFiltros() {
 
     this.filtros.push({ nombre: "todos", filtra: false, clase: this.estiloFiltro });
